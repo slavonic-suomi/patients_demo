@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+group 'com.itsy.pub.courses'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(":common")
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.21.0'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.itsm.pub.courses.patients.front.FrontMain'
+    }
+}
