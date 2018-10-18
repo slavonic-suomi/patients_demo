@@ -19,6 +19,7 @@
 
     </resultMap>
 
+
     <select id="getSale" resultMap="productSaleResultMap" parameterType="Integer">
         select ps.id        ps_id,
                ps.date      ps_date,

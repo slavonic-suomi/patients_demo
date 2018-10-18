@@ -4,6 +4,7 @@ import com.itsm.pub.courses.patients.common.entities.ProductSale;
 import com.itsm.pub.courses.patients.worker.mapper.SaleMapper;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class SaleReport {
     public void doReport() throws IOException {
         List<ProductSale> saleList = saleMapper.getSaleList();
 
-        HSSFWorkbook book = new HSSFWorkbook();
+        XSSFWorkbook book = new XSSFWorkbook();
         Sheet sheet = book.createSheet("Sales");
 
         Row titleRow = sheet.createRow(0);

@@ -46,7 +46,7 @@ public class AuditableAnnotationBeanPostProcessor implements BeanPostProcessor {
                             result = method.invoke(original, args);
                         } catch (final Throwable e){
                             success = false;
-                            throw e;
+                            throw e.getCause();
                         } finally {
                             if (original.getClass().getMethod(method.getName(), method.getParameterTypes()).getAnnotation(Auditable.class) != null) {
                                 repo.create(success, args);
