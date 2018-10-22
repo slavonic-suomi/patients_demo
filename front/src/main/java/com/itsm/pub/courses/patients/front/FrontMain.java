@@ -1,7 +1,10 @@
 package com.itsm.pub.courses.patients.front;
 
+import com.itsm.pub.courses.patients.common.entities.Patient;
 import com.itsm.pub.courses.patients.front.config.FrontConfig;
 import com.itsm.pub.courses.patients.front.context.UserNameHolder;
+import com.itsm.pub.courses.patients.front.repository.IListRepository;
+import com.itsm.pub.courses.patients.front.repository.domain.IPatientRepository;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Scanner;
@@ -19,5 +22,6 @@ public class FrontMain {
 
         Runnable mainMenu = (Runnable) context.getBean("mainMenu");
         mainMenu.run();
+
     }
 }

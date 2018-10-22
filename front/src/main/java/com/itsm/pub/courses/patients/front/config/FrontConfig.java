@@ -25,6 +25,7 @@ import org.vibur.dbcp.ViburDBCPDataSource;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @ComponentScan("com.itsm.pub.courses.patients")
@@ -35,13 +36,13 @@ public class FrontConfig {
     @Autowired
     private ConfigurableEnvironment environment;
 
-    @Value("${server.driver}")
+    @Value("${jdbc.driver}")
     private String driver;
-    @Value("${server.url}")
+    @Value("${jdbc.url}")
     private String url;
-    @Value("${server.user}")
+    @Value("${jdbc.user}")
     private String user;
-    @Value("${server.password}")
+    @Value("${jdbc.password}")
     private String password;
 
     @Bean
@@ -73,14 +74,26 @@ public class FrontConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean sessionFactory(JpaVendorAdapter jpaVendorAdapter, DataSource ds) {
+    public Properties jpaProperties() {
+        Properties properties = new Properties();
+
+        properties.put("hibernate.format_sql",   environment.getProperty("hibernate.format_sql"));
+        properties.put("hibernate.show_sql",     environment.getProperty("hibernate.show_sql"));
+        properties.put("hibernate.dialect",      environment.getProperty("hibernate.dialect"));
+        properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
+
+        return properties;
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean sessionFactory(JpaVendorAdapter jpaVendorAdapter, Properties jpaProperties, DataSource ds) {
         LocalContainerEntityManagerFactoryBean factoryBean
                 = new LocalContainerEntityManagerFactoryBean();
 
         factoryBean.setDataSource(ds);
         factoryBean.setPackagesToScan("com.itsm.pub.courses.patients.common.entities");
         factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-//        factoryBean.setJpaProperties();
+        factoryBean.setJpaProperties(jpaProperties);
 
         return factoryBean;
     }

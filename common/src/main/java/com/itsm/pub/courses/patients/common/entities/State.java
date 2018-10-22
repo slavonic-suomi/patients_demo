@@ -14,8 +14,10 @@ import javax.persistence.*;
 public class State implements IEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "code", columnDefinition = "char(2)")
     private String code;
     private String name;
 }
