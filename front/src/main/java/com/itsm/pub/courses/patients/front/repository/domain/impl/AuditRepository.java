@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -22,11 +23,18 @@ public class AuditRepository
     }
 
     @Override
+    protected Class<AuditRecord> getEntityClass() {
+        return AuditRecord.class;
+    }
+
+    @Override
     @Transactional
-    public void create(boolean success, Object... params) {
+    public void create(boolean success, String name, Object... params) {
         String data = Arrays.stream(params)
                 .map(Object::toString)
                 .collect(Collectors.joining(";"));
+
+        data = name + " : " + data;
 
         jdbcTemplate.update(
             "insert into audit (data, date, success) " +

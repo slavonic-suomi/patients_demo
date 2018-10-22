@@ -2,6 +2,7 @@ package com.itsm.pub.courses.patients.front.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import liquibase.integration.spring.SpringLiquibase;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +12,18 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBuilder;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.vibur.dbcp.ViburDBCPDataSource;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
@@ -60,8 +68,26 @@ public class FrontConfig {
     }
 
     @Bean
-    public PlatformTransactionManager txManager(DataSource ds) {
-        return new DataSourceTransactionManager(ds);
+    public JpaVendorAdapter jpaVendorAdapter() {
+        return new HibernateJpaVendorAdapter();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean sessionFactory(JpaVendorAdapter jpaVendorAdapter, DataSource ds) {
+        LocalContainerEntityManagerFactoryBean factoryBean
+                = new LocalContainerEntityManagerFactoryBean();
+
+        factoryBean.setDataSource(ds);
+        factoryBean.setPackagesToScan("com.itsm.pub.courses.patients.common.entities");
+        factoryBean.setJpaVendorAdapter(jpaVendorAdapter);
+//        factoryBean.setJpaProperties();
+
+        return factoryBean;
+    }
+
+    @Bean
+    public PlatformTransactionManager txManager(EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
     }
 
     @Bean

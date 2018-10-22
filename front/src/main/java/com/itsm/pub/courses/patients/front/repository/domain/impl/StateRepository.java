@@ -8,12 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+
 @Repository
 public class StateRepository extends AbstractListRepository<State> implements IStateRepository {
 
     @Autowired
     protected StateRepository(EntityMapper<State> mapper, JdbcTemplate jdbcTemplate) {
         super(mapper, jdbcTemplate);
+    }
+
+    @Override
+    protected Class<State> getEntityClass() {
+        return State.class;
     }
 
     @Override

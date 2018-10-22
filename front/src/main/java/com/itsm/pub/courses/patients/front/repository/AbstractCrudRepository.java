@@ -4,6 +4,8 @@ import com.itsm.pub.courses.patients.common.entities.IEntity;
 import com.itsm.pub.courses.patients.front.repository.mapper.EntityMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.persistence.EntityManager;
+
 public abstract class AbstractCrudRepository<E extends IEntity>
         extends AbstractListRepository<E>
         implements ICrudRepository<E> {

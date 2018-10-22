@@ -21,6 +21,10 @@ public class AuditableAnnotationBeanPostProcessor implements BeanPostProcessor {
     @Lazy
     private IAuditRepository repo;
 
+    @Autowired
+    @Lazy
+    private UserNameHolder nameHolder;
+
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         boolean hasAudMethod = Arrays.stream(bean.getClass().getMethods())
@@ -49,7 +53,7 @@ public class AuditableAnnotationBeanPostProcessor implements BeanPostProcessor {
                             throw e.getCause();
                         } finally {
                             if (original.getClass().getMethod(method.getName(), method.getParameterTypes()).getAnnotation(Auditable.class) != null) {
-                                repo.create(success, args);
+                                repo.create(success,nameHolder.getCurrentName(), args);
                             }
                         }
 

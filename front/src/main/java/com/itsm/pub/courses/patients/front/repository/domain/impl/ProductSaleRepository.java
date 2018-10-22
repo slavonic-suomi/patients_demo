@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.Date;
 
 @Repository
@@ -19,6 +20,11 @@ public class ProductSaleRepository extends AbstractListRepository<ProductSale> i
     @Autowired
     protected ProductSaleRepository(EntityMapper<ProductSale> mapper, JdbcTemplate jdbcTemplate) {
         super(mapper, jdbcTemplate);
+    }
+
+    @Override
+    protected Class<ProductSale> getEntityClass() {
+        return ProductSale.class;
     }
 
     @Override

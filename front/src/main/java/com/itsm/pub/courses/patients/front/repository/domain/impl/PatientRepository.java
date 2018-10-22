@@ -14,6 +14,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
@@ -24,6 +25,11 @@ public class PatientRepository extends AbstractCrudRepository<Patient>
     @Autowired
     protected PatientRepository(EntityMapper<Patient> mapper, JdbcTemplate jdbcTemplate) {
         super(mapper, jdbcTemplate);
+    }
+
+    @Override
+    protected Class<Patient> getEntityClass() {
+        return Patient.class;
     }
 
     @Override

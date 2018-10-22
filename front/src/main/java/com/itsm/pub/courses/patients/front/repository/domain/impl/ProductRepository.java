@@ -12,6 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
@@ -22,6 +23,11 @@ public class ProductRepository extends AbstractCrudRepository<Product> implement
     @Autowired
     public ProductRepository(EntityMapper<Product> mapper, JdbcTemplate jdbcTemplate) {
         super(mapper, jdbcTemplate);
+    }
+
+    @Override
+    protected Class<Product> getEntityClass() {
+        return Product.class;
     }
 
     @Override

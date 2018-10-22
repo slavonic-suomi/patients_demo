@@ -6,5 +6,5 @@ import com.itsm.pub.courses.patients.front.repository.IListRepository;
 public interface IAuditRepository
         extends IListRepository<AuditRecord> {
 
-    void create(boolean success, Object... params);
+    void create(boolean success, String userName,  Object... params);
 }
