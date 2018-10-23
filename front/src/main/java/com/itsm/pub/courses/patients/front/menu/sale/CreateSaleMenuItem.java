@@ -9,6 +9,7 @@ import com.itsm.pub.courses.patients.front.repository.domain.IProductRepository;
 import com.itsm.pub.courses.patients.front.repository.domain.IProductSaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @SaleMenuItem
@@ -37,6 +38,7 @@ public class CreateSaleMenuItem implements IMenuItem {
     }
 
     @Override
+    @Transactional
     public int doAction() {
         System.out.println("input patient phone: ");
         String phone = helper.read();

@@ -6,6 +6,7 @@ import com.itsm.pub.courses.patients.front.menu.util.MenuHelper;
 import com.itsm.pub.courses.patients.front.repository.ICrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @PatientMenuItem
@@ -26,6 +27,7 @@ public class PatientSearchByIdMenuItem implements IMenuItem {
     }
 
     @Override
+    @Transactional
     public int doAction() {
         System.out.println("Enter patient id:");
         int id = menuHelper.readInt();

@@ -15,7 +15,7 @@ import java.util.List;
 
 public class WorkerMain {
     public static void main(String[] args) throws IOException {
-//        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(WorkerConfig.class);
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(WorkerConfig.class);
 //        StateMapper stateMapper = context.getBean(StateMapper.class);
 //        SaleMapper  saleMapper  = context.getBean(SaleMapper.class);
 //

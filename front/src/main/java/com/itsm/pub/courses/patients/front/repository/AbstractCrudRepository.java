@@ -1,23 +1,27 @@
 package com.itsm.pub.courses.patients.front.repository;
 
 import com.itsm.pub.courses.patients.common.entities.IEntity;
-import com.itsm.pub.courses.patients.front.repository.mapper.EntityMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import javax.persistence.EntityManager;
+import org.springframework.transaction.annotation.Transactional;
 
 public abstract class AbstractCrudRepository<E extends IEntity>
         extends AbstractListRepository<E>
         implements ICrudRepository<E> {
 
-    public AbstractCrudRepository(EntityMapper<E> mapper, JdbcTemplate jdbcTemplate) {
-        super(mapper, jdbcTemplate);
+    @Override
+    @Transactional
+    public void create(E e) {
+        em.persist(e);
     }
 
+    @Override
+    @Transactional
+    public void update(E e) {
+        em.merge(e);
+    }
 
     @Override
+    @Transactional
     public void delete(E e) {
-        jdbcTemplate.update("delete  from " + mapper.getTableName() +
-                " where id = ?", e.getId());
+        em.remove(e);
     }
 }

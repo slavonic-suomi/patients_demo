@@ -14,7 +14,7 @@ public class FrontMain {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(FrontConfig.class);
         context.registerShutdownHook();
 
-        System.out.println("Hello: ");
+        System.out.println("Hello, what's your name? ");
         String name = new Scanner(System.in).next();
 
         UserNameHolder holder = context.getBean(UserNameHolder.class);
@@ -22,6 +22,5 @@ public class FrontMain {
 
         Runnable mainMenu = (Runnable) context.getBean("mainMenu");
         mainMenu.run();
-
     }
 }

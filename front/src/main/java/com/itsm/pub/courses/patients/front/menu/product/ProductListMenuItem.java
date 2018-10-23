@@ -5,6 +5,7 @@ import com.itsm.pub.courses.patients.front.menu.IMenuItem;
 import com.itsm.pub.courses.patients.front.menu.state.StateMenuItem;
 import com.itsm.pub.courses.patients.front.repository.IListRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @ProductMenuItem
@@ -23,6 +24,7 @@ public class ProductListMenuItem implements IMenuItem {
     }
 
     @Override
+    @Transactional
     public int doAction() {
         productRepository.findAll().forEach(System.out::println);
         return 0;
