@@ -5,18 +5,19 @@ import com.itsm.pub.courses.patients.front.menu.IMenuItem;
 import com.itsm.pub.courses.patients.front.repository.domain.impl.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Random;
 
 @Component
 @StateMenuItem
-public class StateByIdMenuItem implements IMenuItem {
+public class RandomStateMenuItem implements IMenuItem {
 
     private final StateRepository stateRepository;
 
     @Autowired
-    public StateByIdMenuItem(StateRepository stateRepository) {
+    public RandomStateMenuItem(StateRepository stateRepository) {
         this.stateRepository = stateRepository;
     }
 
@@ -26,10 +27,12 @@ public class StateByIdMenuItem implements IMenuItem {
     }
 
     @Override
+    @Transactional
     public int doAction() {
         List<State> all = stateRepository.findAll();
         int randomIndex = new Random().nextInt(all.size());
-        System.out.println(all.get(randomIndex));
+        State state = all.get(randomIndex);
+        System.out.println(state);
         return 0;
     }
 }
