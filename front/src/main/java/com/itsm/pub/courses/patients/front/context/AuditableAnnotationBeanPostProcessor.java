@@ -39,7 +39,7 @@ public class AuditableAnnotationBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (map.containsKey(beanName)) {
-            Object original = bean;
+            Object original = map.get(beanName);
             return Proxy.newProxyInstance(
                     original.getClass().getClassLoader(),
                     original.getClass().getInterfaces(),

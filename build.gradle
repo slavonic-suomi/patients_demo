@@ -1,16 +1,36 @@
-plugins {
-    id 'java'
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.19"
+        classpath "io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.0.6.RELEASE"
+    }
 }
 
-group 'com.itsy.pub.courses'
-version '1.0-SNAPSHOT'
+ext['mysql.version'] = '6.0.6'
+ext['log4j2.version']     = '2.11.0'
+ext['hibernate.version']  = '5.3.7.Final'
+ext['byte-buddy.version'] = '1.8.12'
 
-sourceCompatibility = 1.8
+subprojects {
+    group 'com.itsy.pub.courses'
+    version '1.0-SNAPSHOT'
 
-repositories {
-    mavenCentral()
+    apply plugin: 'java'
+    apply plugin: 'net.ltgt.apt'
+
+    repositories {
+        mavenCentral()
+    }
 }
 
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+project(':front') {
+    dependencies {
+        compile project(':common')
+    }
 }

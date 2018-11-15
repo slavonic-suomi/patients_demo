@@ -1,28 +1,31 @@
-plugins {
-    id 'java'
-}
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
 group 'com.itsy.pub.courses'
 version '1.0-SNAPSHOT'
+
+apply plugin: 'io.spring.dependency-management'
+
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
 }
-
 dependencies {
     compile project(":common")
 
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
-    compile group: 'org.springframework', name: 'spring-orm', version: '5.0.8.RELEASE'
+    compile group: 'org.springframework', name: 'spring-orm'
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.21.0'
+    testCompile group: 'junit', name: 'junit'
+    testCompile group: 'org.mockito', name: 'mockito-core'
 }
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.itsm.pub.courses.patients.front.FrontMain'
-    }
-}

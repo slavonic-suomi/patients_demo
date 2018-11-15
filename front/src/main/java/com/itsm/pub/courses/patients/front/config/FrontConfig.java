@@ -60,7 +60,7 @@ public class FrontConfig {
     }
 
     @Bean
-    public SpringLiquibase springLiquibase(DataSource ds) {
+    public SpringLiquibase liquibase(DataSource ds) {
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setDataSource(ds);
         liquibase.setChangeLog("classpath:db/changeLog.xml");
