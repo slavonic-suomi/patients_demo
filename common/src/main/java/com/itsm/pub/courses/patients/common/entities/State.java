@@ -20,5 +20,6 @@ public class State implements IEntity {
     @Column(name = "code", columnDefinition = "char(2)")
     private String code;
 
+    @Basic
     private String name;
 }

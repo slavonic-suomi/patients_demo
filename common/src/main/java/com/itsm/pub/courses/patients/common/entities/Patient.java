@@ -24,8 +24,4 @@ public class Patient implements IEntity {
     @JoinColumn(name = "state_id")
     private State state;
 
-
-    //    @Enumerated(EnumType.STRING)
-//    @Column(name = "gender")
-//    private Gender gender;
 }

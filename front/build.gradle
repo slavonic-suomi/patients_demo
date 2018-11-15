@@ -20,12 +20,8 @@ repositories {
 dependencies {
     compile project(":common")
 
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.1'
     compile group: 'org.springframework', name: 'spring-orm'
 
-    testCompile group: 'junit', name: 'junit'
-    testCompile group: 'org.mockito', name: 'mockito-core'
 }
 

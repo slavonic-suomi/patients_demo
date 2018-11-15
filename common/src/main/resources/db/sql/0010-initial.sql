@@ -24,7 +24,7 @@ CREATE TABLE state (
 CREATE TABLE audit (
   id int NOT NULL AUTO_INCREMENT,
   data varchar(2000) NOT NULL,
-  date DATETIME(6) NOT NULL,
+  date DATETIME NOT NULL,
   success bit(1) NOT NULL,
   PRIMARY KEY (id)
 );
@@ -50,7 +50,7 @@ CREATE TABLE product_sale (
   id int NOT NULL AUTO_INCREMENT,
   patient_id int NOT NULL,
   product_id int NOT NULL,
-  date DATETIME(6) NOT NULL,
+  date DATETIME NOT NULL,
   PRIMARY KEY (id)
 );
 
